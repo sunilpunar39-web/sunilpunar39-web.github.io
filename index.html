@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2rem;
+        }
+        form {
+            max-width: 400px;
+        }
+        .question {
+            margin-bottom: 1rem;
+        }
+        button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:focus-visible {
+            outline: 2px solid #0056b3;
+            outline-offset: 2px;
+        }
+        #result {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Quiz</h1>
+
+    <form id="quiz-form">
+        <fieldset class="question">
+            <legend>1. What is 2 + 2?</legend>
+            <label><input type="radio" name="q1" value="3"> 3</label><br>
+            <label><input type="radio" name="q1" value="4"> 4</label><br>
+            <label><input type="radio" name="q1" value="5"> 5</label>
+        </fieldset>
+
+        <fieldset class="question">
+            <legend>2. What is the capital of France?</legend>
+            <label><input type="radio" name="q2" value="London"> London</label><br>
+            <label><input type="radio" name="q2" value="Berlin"> Berlin</label><br>
+            <label><input type="radio" name="q2" value="Paris"> Paris</label>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="result" aria-live="polite"></div>
+
+    <script>
+        document.getElementById('quiz-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent page reload
+
+            const formData = new FormData(this);
+            const q1 = formData.get('q1');
+            const q2 = formData.get('q2');
+
+            let score = 0;
+            if (q1 === '4') score++;
+            if (q2 === 'Paris') score++;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `You scored ${score} out of 2.`;
+
+            if (score === 2) {
+                // Trigger confetti on perfect score
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

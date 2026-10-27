@@ -1,0 +1,3 @@
+## 2023-10-27 - Form Accessibility
+**Learning:** For a group of radio buttons, screen readers navigate them correctly when grouped within a `<fieldset>` with an accompanying `<legend>` to describe the purpose of the group. Dynamically updated content on the page (like a quiz result score) must use `aria-live` to be announced by screen readers when updated.
+**Action:** Use `<fieldset>` and `<legend>` for groups of related inputs like radio buttons and checkboxes. Add `aria-live="polite"` or `aria-live="assertive"` to divs where dynamic responses populate. Ensure buttons have a visible focus state for keyboard navigators using `:focus-visible`.
